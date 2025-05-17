@@ -1,0 +1,83 @@
+
+1 stage
+
+
+first build the application in the local to understand the project
+
+cmd to build the application 
+cmd: go build -o main(it can be any name ) .
+
+a binary will be created as main 
+
+it can be run by using the command
+
+cmd: ./main(name of the binary)
+
+
+build a dockerfile and then build the docker file '
+
+cmd: docker build -t (name of the dockerregistry)/(application name):version .
+ex: docker build -t mahi190795/go-web-app:v1
+
+to check the container is running or not run docker running
+
+cmd : docker run -p 8080:8080 -it (image name ) .
+ex: docker run -p 8080:8080 -it mahi190795/go-web-app:v1
+
+-p = publish 
+first 8080 is for host mapping 
+second 8080 is container mapping which is mention in the dockerfile 
+-it = interactive terminal
+
+and then push it docker registry
+
+cmd : docker push mahi190795/go-web-app:v1
+
+2 stage
+
+create k8s folder and manifest inside the k8s
+then create deployment, service and ingress files
+in that 
+
+get the code from the kubernetes site and modify accordingly
+
+once created the yaml files 
+ 
+do env setup need kubectl, eksctl and awscli 
+
+then it is done create a eks cluster
+then 
+
+cmd  kubectl apply -f k8s/manifest/deployment.yaml
+
+pod will run 
+
+kubectl get pods
+
+kubectl apply -f k8s/manifest/service.yaml
+kubectl apply -f k8s/manifest/ingresst.yaml
+cannot access the using ingress address will miss
+kubectl get ing 
+
+we need an ingress controller it will assign address 
+
+expose the service in node port and check the service is running
+
+kubectl edit svc go-web-app   --> this is opening in note pad and the changes are not changing for that i found some othe option 
+kubectl get svc <service-name> -o yaml > service.yaml it will create the file sevice.yaml and we can edit and same the file then we can use 
+kubectl apply -f service.yaml file 
+
+change the service to node port 
+
+kubectl get node -o wide it will show the node ip adress
+
+ingress controller configuration
+
+cmd from ingress website for aws
+
+now kubectl get pods -n ingress-nginx
+
+kubectl get ing it will provide the address
+
+
+nslookup 
